@@ -1,4 +1,4 @@
-import sncorreopy
+from sncorreopy import SNCorreo
 
 #parametros para la conexion
 SERVIDOR_SMTP = 'smtp.gmail.com'
@@ -9,7 +9,7 @@ USUARIO = input('Introduce usuario: ')
 PASSWORD = input('Introduce password: ')
 
 #test
-sncorreo=SNCorreo(SERVIDOR_SMTP,PUERTO_SMTP_SSL,USUARIO,PASSWORD)
+sncorreo=SNCorreo(SERVIDOR_SMTP,PUERTO_SMTP_SSL,SERVIDOR_IMAP,PUERTO_IMAP_SSL,USUARIO,PASSWORD)
 destinatario = input('Introduce destinatario: ')
 mensaje=sncorreo.crearMensaje(USUARIO,destinatario,'Test','Esto es un test')
 sncorreo.enviarMensaje(mensaje)
