@@ -26,8 +26,17 @@ class SNCorreo:
 	def enviarMensaje(self,mensajeMIME):
 		self.servidorOUT.sendmail(mensajeMIME['from'],mensajeMIME['to'],mensajeMIME.as_string())
 	def leerCorreos(self):
-		resultado, datos=self.servidorIN.search(None,'UNSEEN')
-		print(datos) #TODO: Hay que ojear el contenido
+		estado, respuesta=self.servidorIN.search(None,'UNSEEN')
+		msg_sin_leer=respuesta[0].split()
+		print(len(msg_sin_leer))
+
+		for eid in msg_sin_leer:
+                        _, respuesta = self.servidorIN.fetch(eid,'(UID BODY[TEXT])')
+                        print(respuesta[0][1])
+
+		#Marcar como leidos
+		for eid in msg_sin_leer:
+                        self.servidorIN.store(eid,'+FLAGS','\Seen')
 		
 	def cerrarSesion(self):
 		self.servidorOUT.quit()
